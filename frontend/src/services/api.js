@@ -11,17 +11,29 @@ const getBaseUrl = () => {
 
 const api = axios.create({
   baseURL: getBaseUrl(),
-  timeout: 30000,
+  timeout: 90000, // 90s to accommodate Render free-tier container cold starts
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
-// Interceptor for unified error handling
+// Interceptor with automatic 1-time retry for Render cold starts
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    const errorMsg = error.response?.data?.message || error.message || 'An unexpected error occurred';
+  async (error) => {
+    const config = error.config;
+    if (config && !config._retry && (error.code === 'ECONNABORTED' || error.message?.includes('timeout') || error.response?.status === 503)) {
+      config._retry = true;
+      console.warn('Backend cold start detected (Render). Retrying request...');
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      return api(config);
+    }
+
+    const errorMsg =
+      error.code === 'ECONNABORTED' || error.message?.includes('timeout')
+        ? 'Backend service is waking up from cold start. Please click Retry Connection in a moment.'
+        : error.response?.data?.message || error.message || 'An unexpected error occurred';
+
     console.error('API Error:', errorMsg);
     return Promise.reject(new Error(errorMsg));
   }

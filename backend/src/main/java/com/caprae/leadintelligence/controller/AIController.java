@@ -17,12 +17,12 @@ public class AIController {
     private final AIService aiService;
 
     @PostMapping("/leads/{id}/explanation")
-    public ResponseEntity<AIAnalysisResponse> getLeadExplanation(@PathVariable Long id) {
+    public ResponseEntity<AIAnalysisResponse> getLeadExplanation(@PathVariable("id") Long id) {
         return ResponseEntity.ok(aiService.generateLeadExplanation(id));
     }
 
     @PostMapping("/leads/{id}/outreach-angle")
-    public ResponseEntity<AIAnalysisResponse> getOutreachAngle(@PathVariable Long id) {
+    public ResponseEntity<AIAnalysisResponse> getOutreachAngle(@PathVariable("id") Long id) {
         return ResponseEntity.ok(aiService.generateOutreachAngle(id));
     }
 }

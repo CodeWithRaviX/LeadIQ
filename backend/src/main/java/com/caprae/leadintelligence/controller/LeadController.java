@@ -32,19 +32,19 @@ public class LeadController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LeadResponse> getLeadById(@PathVariable Long id) {
+    public ResponseEntity<LeadResponse> getLeadById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(leadService.getLeadById(id));
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<LeadResponse> updateStatus(@PathVariable Long id, @RequestBody Map<String, String> body) {
+    public ResponseEntity<LeadResponse> updateStatus(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
         String statusStr = body.get("status");
         LeadStatus status = LeadStatus.valueOf(statusStr.toUpperCase());
         return ResponseEntity.ok(leadService.updateStatus(id, status));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteLead(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> deleteLead(@PathVariable("id") Long id) {
         leadService.deleteLead(id);
         return ResponseEntity.ok(Map.of("success", true, "message", "Lead deleted successfully"));
     }
@@ -56,7 +56,7 @@ public class LeadController {
     }
 
     @PostMapping("/{id}/score")
-    public ResponseEntity<LeadScoreResponse> scoreLead(@PathVariable Long id) {
+    public ResponseEntity<LeadScoreResponse> scoreLead(@PathVariable("id") Long id) {
         return ResponseEntity.ok(leadScoringService.scoreLead(id));
     }
 

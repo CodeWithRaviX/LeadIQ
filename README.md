@@ -334,7 +334,7 @@ LeadIQ is designed to process user-provided commercial B2B datasets. Production 
 
 ## Demo Video
 
-🎥 **Product Walkthrough Video**: [Watch LeadIQ Demo](#)
+🎥 **Product Walkthrough Video**: [Watch LeadIQ Demo Video](https://drive.google.com/file/d/1oiSrlsrpHIVTIUbYij8dNV1oFAHPBNXQ/view?usp=sharing)
 
 The demo highlights:
 1. Executive KPI dashboard & score distribution charts

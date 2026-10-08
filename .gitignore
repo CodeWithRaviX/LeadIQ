@@ -1,0 +1,30 @@
+# Environment & Credentials
+.env
+.env.*
+*.env
+application.properties
+**/application.properties
+application-local.properties
+
+# Build & Dependencies
+target/
+**/target/
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+out/
+**/out/
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE & OS
+.idea/
+**/.idea/
+*.iml
+**/*.iml
+*.ipr
+*.iws
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
@@ -7,8 +7,13 @@ import Leads from './pages/Leads';
 import LeadDetails from './pages/LeadDetails';
 import ImportLeads from './pages/ImportLeads';
 import Settings from './pages/Settings';
+import api from './services/api';
 
 export default function App() {
+  useEffect(() => {
+    // Fire background warm-up ping to wake up Render container immediately on page load
+    api.get('/health').catch(() => {});
+  }, []);
   return (
     <BrowserRouter>
       <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
